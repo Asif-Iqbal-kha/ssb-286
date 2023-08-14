@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aggregate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url(Asif.jpeg);
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .congrats {
+            color: #2ecc71;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #result {
+            font-size: 18px;
+            margin-top: 15px;
+        }
+    </style>
+    <script>
+        function calculateAggregate() {
+            var matricMarks = parseFloat(document.getElementById("matricMarks").value);
+            var fscMarks = parseFloat(document.getElementById("fscMarks").value);
+            var eteaMarks = parseFloat(document.getElementById("eteaMarks").value);
+
+            var errorMessage = "";
+
+            if (matricMarks < 0 || matricMarks > 1100) {
+                errorMessage += "Matric Marks should be between 0 and 1100.<br>";
+            }
+
+            if (fscMarks < 0 || fscMarks > 550) {
+                errorMessage += "FSC Marks should be between 0 and 550.<br>";
+            }
+
+            if (eteaMarks < 0 || eteaMarks > 100) {
+                errorMessage += "ETEA Marks should be between 0 and 100.<br>";
+            }
+
+            if (errorMessage !== "") {
+                document.getElementById("error").innerHTML = errorMessage;
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("congrats").innerHTML = "";
+            } else {
+                var aggregate = (matricMarks / 1100 * 0.10 * 100) + (fscMarks / 550 * 0.50 * 100) + (eteaMarks / 100 * 0.40 * 100);
+                document.getElementById("result").innerHTML = "Aggregate: " + aggregate.toFixed(2) + "%";
+                document.getElementById("error").innerHTML = "";
+
+                if (aggregate > 80) {
+                    document.getElementById("congrats").innerHTML = "Congratulations! You have exceeded 80%.";
+                } else {
+                    document.getElementById("congrats").innerHTML = "";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Software Department at UET Mardan</h1>
+        <h2>Aggregate Calculator</h2>
+        <label for="matricMarks">Matric Marks (Out of 1100):</label>
+        <input type="number" id="matricMarks" step="any"><br>
+
+        <label for="fscMarks">FSC Marks (Out of 550):</label>
+        <input type="number" id="fscMarks" step="any"><br>
+
+        <label for="eteaMarks">ETEA Marks (Out of 100):</label>
+        <input type="number" id="eteaMarks" step="any"><br>
+
+        <button onclick="calculateAggregate()">Calculate Aggregate</button>
+
+        <p class="error" id="error"></p>
+        <p id="result"></p>
+        <p class="congrats" id="congrats"></p>
+    </div>
+</body>
+</html>
